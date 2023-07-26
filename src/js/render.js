@@ -1,6 +1,7 @@
 import { countCategories } from './utils/countCategories';
 
 const noteList = document.querySelector('.noteList');
+const statisticList = document.querySelector('.statistic');
 
 export const render = notes => {
 	let notesMarkup = notes.reduce((acc, note) => {
@@ -25,6 +26,18 @@ export const render = notes => {
           </tr>`);
   }, ``);
 
-	noteList.innerHTML = notesMarkup;
-	console.log(countCategories(notes));
+  noteList.innerHTML = notesMarkup;
+  
+  let categories = countCategories(notes);
+  
+  let statisticMarkup = categories.reduce((acc, category) => {
+    return (acc += `<tr>
+            <td>${category.name}</td>
+            <td>${category.active}</td>
+            <td>${category.archived}</td>
+          </tr>`);
+  }, ``);
+
+  statisticList.innerHTML = statisticMarkup;
+
 };
