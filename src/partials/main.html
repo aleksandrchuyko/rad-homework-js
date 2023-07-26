@@ -1,7 +1,31 @@
 <main>
   <div class="container">
     <h1>Hello Notes</h1>
-    <div class="notes"></div>
+    <div class="notes">
+      <table>
+        <thead>
+          <tr>
+            <th>Created At</th>
+            <th>Category</th>
+            <th>Content</th>
+            <th>Dates</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody class="noteList"></tbody>
+      </table>
+      <button type="button" class="add-note">Add Note</button>
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Active</th>
+            <th>Archived</th>
+          </tr>
+        </thead>
+        <tbody class="statistic"></tbody>
+      </table>
+    </div>
     <div class="categories"></div>
   </div>
 </main>
