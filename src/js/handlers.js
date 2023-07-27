@@ -1,28 +1,54 @@
-import { addForm, addButton, addModalCloseButton } from './refs';
-import { notes } from '../index';
+import {
+  backdropNew,
+  addForm,
+  addButton,
+  addModalCloseButton,
+  backdropEdit,
+  editForm,
+  editModalCloseButton,
+  noteList,
+} from './refs';
+// import { notes } from '../index';
+import { render } from './render';
+import { addNote } from './utils/addNote';
 
 addForm.addEventListener('submit', e => {
   e.preventDefault();
-  newNotes = [
-    ...notes,
-    {
-      id: notes[notes.length - 1].id + 1,
-      createdAt: new Date(),
-      content: e.target.content.value,
-      category: e.target.category.value,
-      active: true,
-      dates: [],
-    },
-  ];
-  console.log(newNotes);
+
+  global.notes = addNote(notes, e);
+
+  e.target.content.value = '';
+  backdropNew.classList.add(['is-hidden']);
+
+  render(global.notes);
 });
 
 addButton.addEventListener('click', () => {
-  const backdrop = document.querySelector('.backdrop-new');
-  backdrop.classList.remove(['is-hidden']);
+  backdropNew.classList.remove(['is-hidden']);
 });
 
 addModalCloseButton.addEventListener('click', () => {
-  const backdrop = document.querySelector('.backdrop-new');
-  backdrop.classList.add(['is-hidden']);
+  backdropNew.classList.add(['is-hidden']);
+});
+
+editForm.addEventListener('submit', e => {
+  e.preventDefault();
+
+  global.notes = editNote(notes, e.target.content.value);
+
+  e.target.content.value = '';
+  backdropEdit.classList.add(['is-hidden']);
+
+  render(global.notes);
+});
+
+noteList.addEventListener('click', (e) => {
+  if (!e.target.classList.contains('edit-btn')) {
+    return;
+  }
+  backdropEdit.classList.remove(['is-hidden']);
+});
+
+editModalCloseButton.addEventListener('click', () => {
+  backdropEdit.classList.add(['is-hidden']);
 });
