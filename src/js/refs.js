@@ -7,7 +7,5 @@ export const addModalCloseButton = document.querySelector('.modal-new__close');
 
 export const backdropEdit = document.querySelector('.backdrop-edit');
 export const editForm = document.querySelector('.edit-form');
-export const editButton = document.querySelectorAll('.edit-btn');
 export const editModalCloseButton = document.querySelector('.modal-edit__close');
-
 
