@@ -5,11 +5,12 @@ const statisticList = document.querySelector('.statistic');
 const archiveList = document.querySelector('.archiveList');
 
 export const render = notes => {
-	let notesMarkup = notes.reduce((acc, note) => {
-		if (note.active !== true) {
-			return acc;
-		}
-    return (acc += `<tr>
+  try {
+    let notesMarkup = notes.reduce((acc, note) => {
+      if (note.active !== true) {
+        return acc;
+      }
+      return (acc += `<tr>
             <td>${note.createdAt}</td>
             <td>${note.category}</td>
             <td>${note.content}</td>
@@ -25,27 +26,27 @@ export const render = notes => {
               </button>
             </td>
           </tr>`);
-  }, ``);
+    }, ``);
 
-  noteList.innerHTML = notesMarkup;
-  
-  let categories = countCategories(notes);
-  
-  let statisticMarkup = categories.reduce((acc, category) => {
-    return (acc += `<tr>
+    noteList.innerHTML = notesMarkup;
+
+    let categories = countCategories(notes);
+
+    let statisticMarkup = categories.reduce((acc, category) => {
+      return (acc += `<tr>
             <td>${category.name}</td>
             <td>${category.active}</td>
             <td>${category.archived}</td>
           </tr>`);
-  }, ``);
+    }, ``);
 
-  statisticList.innerHTML = statisticMarkup;
+    statisticList.innerHTML = statisticMarkup;
 
-  let archivedMarkup = notes.reduce((acc, note) => {
-    if (note.active === true) {
-			return acc;
-		}
-    return (acc += `<tr>
+    let archivedMarkup = notes.reduce((acc, note) => {
+      if (note.active === true) {
+        return acc;
+      }
+      return (acc += `<tr>
             <td>${note.createdAt}</td>
             <td>${note.category}</td>
             <td>${note.content}</td>
@@ -58,8 +59,10 @@ export const render = notes => {
               </button>
             </td>
           </tr>`);
-  }, ``);
+    }, ``);
 
-  archiveList.innerHTML = archivedMarkup;
-
+    archiveList.innerHTML = archivedMarkup;
+  } catch (error) {
+    alert('Incorrect data! Unable to render...');
+  }
 };
