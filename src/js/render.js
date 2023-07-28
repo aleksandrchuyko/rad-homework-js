@@ -2,6 +2,7 @@ import { countCategories } from './utils/countCategories';
 
 const noteList = document.querySelector('.noteList');
 const statisticList = document.querySelector('.statistic');
+const archiveList = document.querySelector('.archiveList');
 
 export const render = notes => {
 	let notesMarkup = notes.reduce((acc, note) => {
@@ -39,5 +40,26 @@ export const render = notes => {
   }, ``);
 
   statisticList.innerHTML = statisticMarkup;
+
+  let archivedMarkup = notes.reduce((acc, note) => {
+    if (note.active === true) {
+			return acc;
+		}
+    return (acc += `<tr>
+            <td>${note.createdAt}</td>
+            <td>${note.category}</td>
+            <td>${note.content}</td>
+            <td>
+              <button type="button" class="unarchive-btn" data-id="${note.id}">
+                Unarchive
+              </button>
+              <button type="button" class="delete-btn" data-id="${note.id}">
+                Delete
+              </button>
+            </td>
+          </tr>`);
+  }, ``);
+
+  archiveList.innerHTML = archivedMarkup;
 
 };
